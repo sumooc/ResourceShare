@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.2.171:3306/user_center?useUnicode=true
+    url: jdbc:mysql://192.168.28.37:3306/user_center?useUnicode=true
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: Admin
-      password: Chinawiserv_admin
+      username: root
+      password: root

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <properties resource="config.properties"/>
+    <properties resource="generator/config.properties"/>
 
     <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <property name="beginningDelimiter" value="`"/>
@@ -20,17 +20,21 @@
                         password="${jdbc.password}">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="com.isea533.mybatis.model"
+        <!--实体类-->
+        <javaModelGenerator targetPackage="com.xiwei.contentcenter.domain.entity.${moduleName}"
                             targetProject="src/main/java"/>
 
-        <sqlMapGenerator targetPackage="mapper"
+        <!--mapper.xml-->
+        <sqlMapGenerator targetPackage="com.xiwei.contentcenter.dao.${moduleName}"
                          targetProject="src/main/resources"/>
 
-        <javaClientGenerator targetPackage="com.isea533.mybatis.mapper"
+        <!--mapper接口-->
+        <javaClientGenerator targetPackage="com.xiwei.contentcenter.dao.${moduleName}"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-        <table tableName="user_info">
+        <!--为哪张表生成上面的三种代码-->
+        <table tableName="${tableName}">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>
