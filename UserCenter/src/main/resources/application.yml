@@ -3,9 +3,8 @@ server:
 
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.28.37:3306/user_center?useUnicode=true
-    druid:
+    url: jdbc:mysql://192.168.28.37:3306/user_center?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    hikari:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: root
