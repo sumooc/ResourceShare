@@ -3,16 +3,16 @@ package com.xiwei.usercenter.domain.entity.user;
 import java.util.Date;
 import javax.persistence.*;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * 表名：user
  * 表注释：分享
 */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "user")
 public class User {
     /**
