@@ -8,3 +8,13 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: root
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        # 指定命名空间
+        namespace: 43c6e64f-436c-4bd0-8cc4-f858880583f9
+        # 指定集群名称
+        cluster-name: ChengDu
+  application:
+    name: UserCenter
