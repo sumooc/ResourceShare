@@ -15,6 +15,8 @@ spring:
         # 指定命名空间
         # namespace: 43c6e64f-436c-4bd0-8cc4-f858880583f9
         # 指定集群名称
-        # cluster-name: ChengDu
+        #cluster-name: ChengDu
+        #cluster-name: WuHan
+        cluster-name: NanJing
   application:
     name: UserCenter

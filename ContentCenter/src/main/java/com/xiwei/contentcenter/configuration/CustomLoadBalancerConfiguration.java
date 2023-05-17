@@ -20,7 +20,11 @@ public class CustomLoadBalancerConfiguration {
         return new RandomLoadBalancer(loadBalancerClientFactory
                 .getLazyProvider(name, ServiceInstanceListSupplier.class), name);*/
         // 轮询负载均衡方式
-        return new RoundRobinLoadBalancer(loadBalancerClientFactory.
+        /*return new RoundRobinLoadBalancer(loadBalancerClientFactory.
+                getLazyProvider(name,ServiceInstanceListSupplier.class),name);*/
+
+        // 使用自定义的方式
+        return new NacosSameClusterWeightedRule(loadBalancerClientFactory.
                 getLazyProvider(name,ServiceInstanceListSupplier.class),name);
     }
 }
