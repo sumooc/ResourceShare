@@ -2,14 +2,8 @@ package com.xiwei.contentcenter.configuration;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
-import com.alibaba.cloud.nacos.NacosServiceManager;
-import com.alibaba.cloud.nacos.balancer.NacosBalancer;
-import com.alibaba.cloud.nacos.discovery.NacosDiscoveryClient;
-import com.alibaba.nacos.api.exception.NacosException;
-import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.client.naming.core.Balancer;
-import com.alibaba.nacos.common.utils.CollectionUtils;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.ObjectProvider;
@@ -25,7 +19,10 @@ import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -37,10 +34,6 @@ public class NacosSameClusterWeightedRule implements ReactorServiceInstanceLoadB
 
     @Resource
     private NacosDiscoveryProperties nacosDiscoveryProperties;
-    @Resource
-    private NacosServiceManager nacosServiceManager;
-    @Resource
-    private NacosDiscoveryClient nacosDiscoveryClient;
 
     // loadbalancer 提供的访问当前服务的名称
     private final String serviceId;
@@ -59,32 +52,6 @@ public class NacosSameClusterWeightedRule implements ReactorServiceInstanceLoadB
      */
     @Override
     public Mono<Response<ServiceInstance>> choose(Request request) {
-        /*try {
-            // 获取配置中的集群名称
-            String clusterName = nacosDiscoveryProperties.getClusterName();
-            List<String> services = nacosDiscoveryClient.getServices();
-
-            // 获取服务相关的API
-            NamingService namingService = nacosServiceManager.getNamingService();
-            // 找到指定服务的所有实例 A
-            List<Instance> instances = namingService.selectInstances("", true);
-            // 过滤出相同集群下的所有实例 B
-            List<Instance> sameClusterInstance = instances.stream().filter(instance ->
-                    Objects.equals(instance.getClusterName(), clusterName)).collect(Collectors.toList());
-            List<Instance> instancesToBeChosen = new ArrayList<>();
-            // 如果B是空，则用A
-            if (CollectionUtils.isEmpty(sameClusterInstance)) {
-                instancesToBeChosen = instances;
-                log.warn("发生跨集群调用，name={}，clusterName={}，instances={}", namingService, clusterName, instances);
-            } else {
-                instancesToBeChosen = sameClusterInstance;
-            }
-            // 基于权重的负载均衡算法，返回一个实例
-        } catch (NacosException e) {
-            log.error("NacosException:" + e);
-        }
-*/
-
         //注入的时候注入的是Lazy Provider，这里取出真正的Bean，也就是ServiceInstanceListSupplier
         ServiceInstanceListSupplier supplier = serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new);
         //获取实例列表
