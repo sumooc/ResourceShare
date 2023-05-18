@@ -12,6 +12,7 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-        cluster-name: WuHan
+        # namespace: 43c6e64f-436c-4bd0-8cc4-f858880583f9
+        cluster-name: ChengDu
   application:
     name: ContentCenter

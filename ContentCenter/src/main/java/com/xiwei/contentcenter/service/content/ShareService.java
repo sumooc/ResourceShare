@@ -4,6 +4,7 @@ import com.xiwei.contentcenter.dao.content.ShareMapper;
 import com.xiwei.contentcenter.domain.dto.content.ShareDTO;
 import com.xiwei.contentcenter.domain.dto.user.UserDTO;
 import com.xiwei.contentcenter.domain.entity.content.Share;
+import com.xiwei.contentcenter.feignclient.UserCenterFeignClient;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -19,7 +20,7 @@ public class ShareService {
     @Resource
     private RestTemplate restTemplate;
     @Resource
-    private DiscoveryClient discoveryClient;
+    private UserCenterFeignClient userCenterFeignClient;
 
     private static final String SERVICE_URL = "http://UserCenter";
 
@@ -31,10 +32,9 @@ public class ShareService {
         List<String> targetUrls = instances.stream().map(instance -> instance.getUri().toString() + "/users/{id}").toList();
         int i = ThreadLocalRandom.current().nextInt(targetUrls.size());*/
 
-        // 如果本地运行代码出现No instances available for xxx错误，查看是不是安有多个网卡使得nacos里服务的ip不对
-        // 解决办法是在服务的application.yml中，加入配置：spring.cloud.inetutils: preferred-networks=192.168.0 #服务注册时优先使用这个网段。
-
-        UserDTO userDTO = restTemplate.getForObject(SERVICE_URL + "/users/{userId}", UserDTO.class, userId);
+        // UserDTO userDTO = restTemplate.getForObject(SERVICE_URL + "/users/{userId}", UserDTO.class, userId);
+        // 上面的代码使用openFeign后
+        UserDTO userDTO = userCenterFeignClient.findById(userId);
         ShareDTO shareDTO = new ShareDTO();
         BeanUtils.copyProperties(share, shareDTO);
         shareDTO.setWxNickName(userDTO.getWxNickname());
