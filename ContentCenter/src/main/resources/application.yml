@@ -16,3 +16,8 @@ spring:
         cluster-name: ChengDu
   application:
     name: ContentCenter
+
+logging:
+  level:
+    # com.xiwei: debug
+    com.xiwei.contentcenter.feignclient.UserCenterFeignClient: debug
