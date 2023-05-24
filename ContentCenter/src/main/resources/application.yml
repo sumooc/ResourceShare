@@ -14,6 +14,20 @@ spring:
         server-addr: localhost:8848
         # namespace: 43c6e64f-436c-4bd0-8cc4-f858880583f9
         cluster-name: ChengDu
+    # 配置属性的方式打印feign的日志
+    openfeign:
+      client:
+        config:
+          # 全局配置时将UserCenter改成default即可
+          UserCenter:
+            connect-timeout: 5000 # 连接超时时间
+            read-timeout: 5000
+            logger-level: full
+            # error-decoder: com.xiwei.SimpleErrorDecoder
+            # retryer: com.xiwei.SimpleRetryer
+            # request-interceptors:
+             # - com.xiwei.FooRequestInterceptor
+            contract: com.xiwei.SimpleContract
   application:
     name: ContentCenter
 
