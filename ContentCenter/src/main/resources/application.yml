@@ -21,13 +21,13 @@ spring:
           # 全局配置时将UserCenter改成default即可
           UserCenter:
             connect-timeout: 5000 # 连接超时时间
-            read-timeout: 5000
+            read-timeout: 5000 # 读取超时时间
             logger-level: full
-            # error-decoder: com.xiwei.SimpleErrorDecoder
-            # retryer: com.xiwei.SimpleRetryer
+            # error-decoder: com.xiwei.SimpleErrorDecoder 错误解码器
+            # retryer: com.xiwei.SimpleRetryer 重试策略
             # request-interceptors:
-             # - com.xiwei.FooRequestInterceptor
-            contract: com.xiwei.SimpleContract
+             # - com.xiwei.FooRequestInterceptor 拦截器
+            # contract: com.xiwei.SimpleContract 契约
   application:
     name: ContentCenter
 
