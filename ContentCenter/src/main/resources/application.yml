@@ -19,7 +19,7 @@ spring:
       client:
         config:
           # 全局配置时将UserCenter改成default即可
-          UserCenter:
+          default:
             connect-timeout: 5000 # 连接超时时间
             read-timeout: 5000 # 读取超时时间
             logger-level: full
@@ -42,3 +42,17 @@ logging:
   level:
     # com.xiwei: debug
     com.xiwei.contentcenter.feignclient.UserCenterFeignClient: debug
+# 配置端点
+#management:
+#  endpoint:
+#    health:
+#      show-details: always
+#    shutdown:
+#      # 通过指定接口关闭 SpringBoot
+#      enabled: true
+#  endpoints:
+#    web:
+#      exposure:
+#        # 打开所有的监控点
+#        include: "*"
+#      base-path: /monitor
