@@ -7,6 +7,7 @@ import com.xiwei.contentcenter.domain.entity.content.Share;
 import com.xiwei.contentcenter.feignclient.UserCenterFeignClient;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,7 @@ public class ShareService {
     private ShareMapper shareMapper;
     @Resource
     private RestTemplate restTemplate;
-    @Resource
+    @Autowired
     private UserCenterFeignClient userCenterFeignClient;
 
     private static final String SERVICE_URL = "http://UserCenter";
@@ -33,8 +34,9 @@ public class ShareService {
         int i = ThreadLocalRandom.current().nextInt(targetUrls.size());*/
 
         // UserDTO userDTO = restTemplate.getForObject(SERVICE_URL + "/users/{userId}", UserDTO.class, userId);
-        // 上面的代码使用openFeign后
+        // 上面的代码使用openFeign后,改成如下
         UserDTO userDTO = userCenterFeignClient.findById(userId);
+
         ShareDTO shareDTO = new ShareDTO();
         BeanUtils.copyProperties(share, shareDTO);
         shareDTO.setWxNickName(userDTO.getWxNickname());
