@@ -15,7 +15,11 @@ spring:
         # namespace: 43c6e64f-436c-4bd0-8cc4-f858880583f9
         cluster-name: ChengDu
     # 配置属性的方式打印feign的日志
-#    openfeign:
+    sentinel:
+      transport:
+        # 指定sentinel控制台的地址
+        dashboard: localhost:8080
+  #    openfeign:
 #      client:
 #        config:
 #          # 全局配置时将UserCenter改成default即可
@@ -43,21 +47,17 @@ logging:
     # com.xiwei: debug
     com.xiwei.contentcenter.feignclient.UserCenterFeignClient: debug
 # 配置端点
-#management:
-#  endpoint:
-#    health:
-#      show-details: always
-#    shutdown:
-#      # 通过指定接口关闭 SpringBoot
-#      enabled: true
-#  endpoints:
-#    web:
-#      exposure:
-#        # 打开所有的监控点
-#        include: "*"
-#      base-path: /monitor
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+      base-path: /actuator
+  endpoint:
+    health:
+      # 显示详情，默认never
+      show-details: always
+      # 所有组件的详细信息，默认never
+      show-components: always
+      logging:
+        slow-indicator-threshold: 1s
