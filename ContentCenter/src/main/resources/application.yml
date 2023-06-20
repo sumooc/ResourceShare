@@ -25,6 +25,9 @@ spring:
         # 如果不设置会默从8719开始扫描，依次+1，直到找到未被占用的端口
         port: 8719
   #    openfeign:
+  #      sentinel:
+  #        # 为openfeign整合sentinel
+  #        enable: true
   #      client:
   #        config:
   #          # 全局配置时将UserCenter改成default即可
